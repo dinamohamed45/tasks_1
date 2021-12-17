@@ -5,6 +5,7 @@
 
 
 # Y-ion spectrum on yeast
+from pyopenms import *
 dig = ProteaseDigestion()
 dig.getEnzymeName()
 bsa = "".join([l.strip() for l in open("yeast.fasta").readlines()[1:]])
@@ -20,10 +21,11 @@ for peptide in peptides:
     p.setValue("add_b_ions", "false")
     p.setValue("add_metainfo", "true")
     tsg.setParameters(p)
-    tsg.getSpectrum(spec1, peptide, 1, 1) # charge range 1:1
-    print("Spectrum 1 of", peptide, "has", spec1.size(), "peaks.")
+    tsg.getSpectrum(spec1, peptide, 1, 1) 
+    print("Spectrum of", peptide, "has", spec1.size(), "peaks.")
     for ion, peak in zip(spec1.getStringDataArrays()[0], spec1):
         print(ion.decode(), "is generated at m/z", peak.getMZ())
+
 
 
 # In[ ]:
